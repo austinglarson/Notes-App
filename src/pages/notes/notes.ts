@@ -35,6 +35,7 @@ export class NotesPage {
       this.notesList = this.database.list('/notes').valueChanges();
       loader.dismiss();
     }) */
+    // Source: https://stackoverflow.com/questions/49701395/ionic-2-reorder-items-from-firebase
     Observable.fromPromise(loader.present()).switchMap(() => { //1
       return this.database.list('/notes').valueChanges(); //2
     }).subscribe((list) => { //3
