@@ -1,0 +1,33 @@
+<ion-menu [content]="nav">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list>
+            <button *ngIf="!isLoggedIn" ion-item icon-left (tap)="load(loginPage)">
+                <ion-icon name="log-in"></ion-icon>
+                Login
+            </button>
+
+            <button *ngIf="!isLoggedIn" ion-item icon-left (tap)="load(signupPage)">
+                <ion-icon name="person"></ion-icon>
+                Sign Up
+            </button>
+
+            <button *ngIf="isLoggedIn" ion-item icon-left (tap)="logout()">
+                <ion-icon name="log-out"></ion-icon>
+                Log Out
+            </button>
+
+            <button *ngIf="isLoggedIn" ion-item icon-left (tap)="load(notesPage)">
+                <ion-icon name="book"></ion-icon>
+                Notes
+            </button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #nav></ion-nav>

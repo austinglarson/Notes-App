@@ -1,0 +1,65 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>Notes</ion-title>
+
+    <ion-buttons end>
+      <button *ngIf="!editmode" ion-button clear (tap)="setEditMode()">Edit</button>
+
+      <button *ngIf="editmode" ion-button clear (tap)="setEditMode()">Done</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <div *ngIf="!editmode">
+      <button *ngFor="let note of notesList" ion-item (tap)="loadNote(note)">
+        <h1>{{ note.name }}</h1>
+        <span>{{ note.note_date | date: 'shortDate' }}</span>
+        <span>{{ note.text }}</span>
+      </button>
+    </div>
+
+    <div *ngIf="editmode">
+      <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event)">
+        <ion-item *ngFor="let note of notesList">
+          <ion-checkbox (ionChange)="addToTrash(note.id)"></ion-checkbox>
+          <ion-label>
+            <h1>{{ note.name }}</h1>
+            <span>{{ note.note_date | date: 'shortDate' }}</span>
+            <span>{{ note.text }}</span>
+            <span>{{ notesList?.length }}</span>
+          </ion-label>
+        </ion-item>
+      </ion-item-group>
+    </div>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-navbar>
+    <p text-center>
+      {{ notesList?.length }} items
+    </p>
+    <ion-buttons end>
+      <button *ngIf="!editmode" ion-button icon-only (tap)="newNote()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+      <button ion-button *ngIf="editmode && trash.length < 1" (tap)="removeAllNotes()">
+        Remove All
+      </button>
+      <button ion-button *ngIf="editmode && trash.length > 0" (tap)="removeTrash()">
+        Remove Checked
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-footer>
