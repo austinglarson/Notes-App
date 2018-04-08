@@ -94,6 +94,7 @@ export class NotesPage {
     alert.present();
   }
 
+  // Reorders the items
   reorderItems( indexes ) {
     this.notesList = reorderArray(this.notesList, indexes);
   }
